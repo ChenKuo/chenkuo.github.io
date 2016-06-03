@@ -199,8 +199,9 @@ var ColorPanel= function(x,y,w,h,cID){
 	this.draw=function(){
 		perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
 		
-		mvPushMatrix();
+		
 		loadIdentity();
+		mvPushMatrix();
 		mvScale([this.w,this.h,1]);
 		mvTranslate([x, y, -1.0]);
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
