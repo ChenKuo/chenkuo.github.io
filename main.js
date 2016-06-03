@@ -307,6 +307,7 @@ function drawScene() {
 	
 	
 	for(var i=0;i<color_panels.length;i++){
+		
 		color_panels[i].move(60*i,50);
 		color_panels[i].draw();
 	}
@@ -704,17 +705,17 @@ if(window.FileReader) {
 					//parse the data into the array
                     var lines=e2.target.result.split('\n');
 					if(lines[lines.length-1]=="")lines.pop();
-					imgData.imageHeight=lines.length;
+					imageHeight=lines.length;
 					for(var i=0;i<lines.length;i++) {
 						var values=lines[i].split(' ');
 						if(values[values.length-1]=="\r")values.pop();
-						if(!imgData.imageWidth){
-							imgData.imageWidth = values.length;
-						}else if(imgData.imageWidth!=values.length){
+						if(!imageWidth){
+							imageWidth = values.length;
+						}else if(imageWidth!=values.length){
 							alert('error reading the file. line:'+i+ ", num:"+values.length+", value=("+values[0]+")");
 						}
 						for(var j=0; j<values.length; j++){
-							if(values[j]) imgData.image2DArray.push(Number(values[j]));
+							if(values[j]) image2DArray.push(Number(values[j]));
 						}
 					}
 					var imgData ={
