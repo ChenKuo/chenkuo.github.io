@@ -46,7 +46,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 				self.y=-y;
 				};
 	this.changeColor=function(cID){
-				tself.cindex=cID;
+				self.cindex=cID;
 				self.createImageColors(cID);
 		};
 	this.createImageColors=function(cID){
