@@ -207,7 +207,7 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		
 		loadIdentity();
-		//mvPushMatrix();
+		mvPushMatrix();
 		mvScale([self.w,self.h,1]);
 		mvTranslate([x, y, -1.0]);
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
@@ -220,7 +220,7 @@ var ColorPanel= function(x,y,w,h,cID){
 		for(var i=0;i<len;i++){
 			gl.drawArrays(gl.TRIANGLE_STRIP, i*4, 4);
 		}
-		//mvPopMatrix();
+		mvPopMatrix();
 	};
 	
 };
