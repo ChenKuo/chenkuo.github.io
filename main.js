@@ -289,12 +289,15 @@ function drawScene() {
 
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	
-	img_panels[0].changeColor(0);
-	img_panels[0].move(100,100);
-	img_panels[0].draw();
-	img_panels[0].changeColor(1);
-	img_panels[0].move(300,100);
-	img_panels[0].draw();
+	if(img_panels.length>0){
+		img_panels[0].changeColor(0);
+		img_panels[0].move(100,100);
+		img_panels[0].draw();
+		img_panels[0].changeColor(1);
+		img_panels[0].move(300,100);
+		img_panels[0].draw();
+	}
+	
 	
 	
 	
