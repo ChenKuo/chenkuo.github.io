@@ -172,7 +172,7 @@ var ColorPanel= function(x,y,w,h,cID){
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push(i*thickness);
-			colorScaleVertices.push(-self.h);
+			colorScaleVertices.push(-1);
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push((i+1)*thickness);
@@ -180,7 +180,7 @@ var ColorPanel= function(x,y,w,h,cID){
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push((i+1)*thickness);
-			colorScaleVertices.push(-self.h);
+			colorScaleVertices.push(-1);
 			colorScaleVertices.push(0);
 
 		}
