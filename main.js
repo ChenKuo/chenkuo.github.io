@@ -250,7 +250,7 @@ function start() {
 		//initBuffers();
 
 		// Set up to draw the scene periodically.
-		drawScene();
+		//drawScene();
 		// no need to update screen every 15ms
 		//setInterval(drawScene, 15);
 	  }
@@ -308,9 +308,11 @@ function drawScene() {
 		console.log(img_panels[0]);
 	}
 	
+	if(color_panels.length>0){
+		color_panels[0].move(200,200);
+		color_panels[0].draw();
+	}
 	
-	color_panels[0].move(100,100);
-	color_panels[0].draw();
 	/*
 	for(var i=0;i<color_panels.length;i++){
 		
