@@ -53,6 +53,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 		var imageColors=[];
 		var imageWidth= img_data[self.id].w;
 		var imageHeight=img_data[self.id].h;
+		var image2DArray=img_data[self.id].data;
 		if(self.id!=null){
 			var len=scales[self.id].length;
 			for(var i=0;i<imageHeight;i++){
