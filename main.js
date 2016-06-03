@@ -199,6 +199,7 @@ var ColorPanel= function(x,y,w,h,cID){
 	};
 	this.create(cID);
 	this.draw=function(){
+		var len=scales[cID].length;
 		perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
 		
 		
