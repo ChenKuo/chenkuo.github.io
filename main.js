@@ -623,7 +623,7 @@ function mvTranslate(v) {
   multMatrix(Matrix.Translation($V([v[0], v[1], v[2]])).ensure4x4());
 }
 function mvScale(v){
-	multMatrix(Matrix.Diagonal($V([v[0], v[1], v[2]])).ensure4x4());
+	multMatrix(Matrix.Diagonal([v[0], v[1], v[2],1]).ensure4x4());
 }
 
 
