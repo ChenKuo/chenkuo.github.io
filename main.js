@@ -21,9 +21,9 @@ var img_panels=[];
 var color_panels=[];
 
 var orthogonal={
-	l: 0,
+	l: -100,
 	r: 600,
-	t: 0,
+	t: 100,
 	b: -400
 };
 
