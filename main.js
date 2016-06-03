@@ -208,7 +208,6 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		loadIdentity();
 		//mvPushMatrix();
-		console.log(self);
 		mvScale([self.w,self.h,1]);
 		mvTranslate([x, y, -1.0]);
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
@@ -298,12 +297,14 @@ function drawScene() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	
 	if(img_panels.length>0){
+		
 		img_panels[0].changeColor(0);
 		img_panels[0].move(100,100);
 		img_panels[0].draw();
 		img_panels[0].changeColor(1);
 		img_panels[0].move(300,100);
 		img_panels[0].draw();
+		console.log(img_panels[0]);
 	}
 	
 	
@@ -313,6 +314,7 @@ function drawScene() {
 		
 		color_panels[i].move(60*i,50);
 		color_panels[i].draw();
+		console.log(color_panels[i]);
 	}
 }
 /*
