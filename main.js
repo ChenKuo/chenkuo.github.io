@@ -299,6 +299,7 @@ function drawScene() {
 	if(img_panels.length>0){
 		
 		img_panels[0].changeColor(0);
+		img_panels[0].scale(img_data[0].w, img_data[0].h);
 		img_panels[0].move(100,100);
 		img_panels[0].draw();
 		img_panels[0].changeColor(1);
