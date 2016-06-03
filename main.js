@@ -128,7 +128,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			
 			loadIdentity();
 			mvScale([self.w,self.h,1]);
-			mvTranslate([x, y, -1.0]);
+			mvTranslate([self.x, self.y, -1.0]);
 
 			gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 			gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
@@ -209,7 +209,7 @@ var ColorPanel= function(x,y,w,h,cID){
 		loadIdentity();
 		mvPushMatrix();
 		mvScale([self.w,self.h,1]);
-		mvTranslate([x, y, -1.0]);
+		mvTranslate([self.x, self.y, -1.0]);
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
