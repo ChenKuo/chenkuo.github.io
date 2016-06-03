@@ -36,22 +36,23 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 	this.cindex=cID;
 	this.verticesBuffer=gl.createBuffer();
 	this.verticesColorBuffer=gl.createBuffer();
+	var self=this;
 	this.scale=function(w,h){
-		this.w=w;
-		this.h=h;
+		self.w=w;
+		self.h=h;
 	};
 	this.move=function(x,y){
-				this.x=x;
-				this.y=-y;
+				self.x=x;
+				self.y=-y;
 				};
 	this.changeColor=function(cID){
-				this.cindex=cID;
-				this.createImageColors(cID);
+				tself.cindex=cID;
+				self.createImageColors(cID);
 		};
 	this.createImageColors=function(cID){
 		var imageColors=[];
-		var imageWidth= img_data[this.id].w;
-		var imageHeight=img_data[this.id].h;
+		var imageWidth= img_data[self.id].w;
+		var imageHeight=img_data[self.id].h;
 		if(id!=null){
 			var len=scales[id].length;
 			for(var i=0;i<imageHeight;i++){
@@ -81,15 +82,15 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			}	
 		}
 		
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesColorBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 		
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageColors), gl.STATIC_DRAW);
 	};
 	this.createImageVertices=
 		function(dID){
 				var imageVertices=[];
-				var imageWidth= img_data[this.id].w;
-				var imageHeight=img_data[this.id].h;
+				var imageWidth= img_data[self.id].w;
+				var imageHeight=img_data[self.id].h;
 				var pixelW=1/imageWidth;
 				var pixelH=1/imageHeight;
 				for(var i=0;i<-imageHeight;i--){
@@ -113,7 +114,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 					}
 				}
 
-				gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+				gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
 		};
@@ -123,18 +124,18 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
 			
 			loadIdentity();
-			mvScale([this.w,this.h,1]);
+			mvScale([self.w,self.h,1]);
 			mvTranslate([x, y, -1.0]);
 
-			gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+			gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 			gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 
-			gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesColorBuffer);
+			gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 			gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
 
 			setMatrixUniforms();
 			
-			for(var i=0;i<img_data[this.id].length;i++){
+			for(var i=0;i<img_data[self.id].length;i++){
 				gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4);
 			}
 		};
@@ -149,9 +150,10 @@ var ColorPanel= function(x,y,w,h,cID){
 	this.cindex=cID;
 	this.verticesBuffer=gl.createBuffer();
 	this.verticesColorBuffer=gl.createBuffer();
+	var self=this;
 	this.move=function(x,y){
-				this.x=x;
-				this.y=-y;
+				self.x=x;
+				self.y=-y;
 				};
 	this.create= 
 	function(id){//(x,y) top-left coordinate, width, height, index of scale
@@ -167,7 +169,7 @@ var ColorPanel= function(x,y,w,h,cID){
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push(i*thickness);
-			colorScaleVertices.push(-this.h);
+			colorScaleVertices.push(-self.h);
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push((i+1)*thickness);
@@ -175,7 +177,7 @@ var ColorPanel= function(x,y,w,h,cID){
 			colorScaleVertices.push(0);
 			
 			colorScaleVertices.push((i+1)*thickness);
-			colorScaleVertices.push(-this.h);
+			colorScaleVertices.push(-self.h);
 			colorScaleVertices.push(0);
 
 		}
@@ -188,10 +190,10 @@ var ColorPanel= function(x,y,w,h,cID){
 				colorScaleColors.push(1);
 			}
 		}
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorScaleVertices), gl.STATIC_DRAW);
 		
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesColorBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorScaleColors), gl.STATIC_DRAW);
 		
 	};
@@ -202,12 +204,12 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		loadIdentity();
 		//mvPushMatrix();
-		mvScale([this.w,this.h,1]);
+		mvScale([self.w,self.h,1]);
 		mvTranslate([x, y, -1.0]);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
-		gl.bindBuffer(gl.ARRAY_BUFFER, this.verticesColorBuffer);
+		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 		gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
 		
 		setMatrixUniforms();
