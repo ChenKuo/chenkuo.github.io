@@ -313,7 +313,7 @@ function drawScene() {
 	
 	for(var i=0;i<color_panels.length;i++){
 		
-		color_panels[i].move(60*i,50);
+		color_panels[i].move(60*i,100);
 		color_panels[i].draw();
 		console.log(color_panels[i]);
 	}
