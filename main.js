@@ -204,6 +204,7 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		loadIdentity();
 		//mvPushMatrix();
+		console.log(self);
 		mvScale([self.w,self.h,1]);
 		mvTranslate([x, y, -1.0]);
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
