@@ -215,7 +215,7 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 		gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-		
+		console.log(mvMatrix);
 		setMatrixUniforms();
 		for(var i=0;i<len;i++){
 			gl.drawArrays(gl.TRIANGLE_STRIP, i*4, 4);
