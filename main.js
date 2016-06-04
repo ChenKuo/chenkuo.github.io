@@ -129,6 +129,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
 			
 			loadIdentity();	
+			mvPushMatrix();
 			mvTranslate([self.x, self.y, -1.0]);
 			mvScale([self.w,self.h,1]);
 			gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
@@ -138,10 +139,11 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
 
 			setMatrixUniforms();
-			
+			console.log(mvMatrix);
 			for(var i=0;i<img_data[self.id].length;i++){
 				gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4);
 			}
+			mvPopMatrix();
 		};
 	
 };
@@ -315,7 +317,7 @@ function drawScene() {
 		
 		color_panels[i].move(60*i,100);
 		color_panels[i].draw();
-		console.log(color_panels[i]);
+		//console.log(color_panels[i]);
 	}
 	
 }
