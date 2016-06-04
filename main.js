@@ -92,11 +92,11 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 	this.createImageVertices=
 		function(dID){
 				var imageVertices=[];
-				var imageWidth= img_data[self.id].w;
-				var imageHeight=img_data[self.id].h;
+				var imageWidth= img_data[dID].w;
+				var imageHeight=img_data[dID].h;
 				var pixelW=1/imageWidth;
 				var pixelH=1/imageHeight;
-				for(var i=0;i<-imageHeight;i--){
+				for(var i=0;i>-imageHeight;i--){
 					for(var j=0; j<imageWidth; j++){
 						imageVertices.push(j*pixelW);
 						imageVertices.push(i*pixelH);
@@ -116,7 +116,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 				
 					}
 				}
-				console.log(imageVertices.length);
+				//console.log(imageVertices.length);
 				//console.log(imageVertices[imageVertices.length-2]);
 				gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 
