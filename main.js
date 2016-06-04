@@ -1,9 +1,6 @@
 
 var canvas;
 var gl;
-//var verticesBuffer;
-//var verticesColorBuffer;
-//var verticesIndexBuffer;
 
 var mvMatrix;
 var shaderProgram;
@@ -11,10 +8,6 @@ var vertexPositionAttribute;
 var vertexColorAttribute;
 var perspectiveMatrix;
 
-
-//var image2DArray=[];
-//var imageWidth;
-//var imageHeight;
 var img_data=[];
 var scales=[];
 var img_panels=[];
