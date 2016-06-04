@@ -1,5 +1,3 @@
-
-
 var canvas;
 var gl;
 
@@ -622,7 +620,6 @@ function addEventHandler(obj, evt, handler) {
         obj['on'+evt] = handler;
     }
 }
-=======
 
 var canvas;
 var gl;
@@ -1246,4 +1243,4 @@ function addEventHandler(obj, evt, handler) {
         obj['on'+evt] = handler;
     }
 }
->>>>>>> origin/master
+
