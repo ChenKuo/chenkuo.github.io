@@ -308,19 +308,14 @@ function drawScene() {
 		console.log(img_panels[0]);
 	}
 	
-	if(color_panels.length>0){
-		color_panels[0].move(200,200);
-		color_panels[0].draw();
-	}
 	
-	/*
 	for(var i=0;i<color_panels.length;i++){
 		
 		color_panels[i].move(60*i,100);
 		color_panels[i].draw();
 		console.log(color_panels[i]);
 	}
-	*/
+	
 }
 /*
 function drawImage(){
