@@ -116,7 +116,8 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 				
 					}
 				}
-
+				console.log(imageVertices[imageVertices.length-3]);
+				console.log(imageVertices[imageVertices.length-2]);
 				gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
@@ -139,7 +140,6 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
 
 			setMatrixUniforms();
-			console.log(mvMatrix);
 			for(var i=0;i<img_data[self.id].length;i++){
 				gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4);
 			}
