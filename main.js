@@ -126,10 +126,9 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 		function(){
 			perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
 			
-			loadIdentity();
-			mvScale([self.w,self.h,1]);
+			loadIdentity();	
 			mvTranslate([self.x, self.y, -1.0]);
-
+			mvScale([self.w,self.h,1]);
 			gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 			gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 
@@ -208,19 +207,15 @@ var ColorPanel= function(x,y,w,h,cID){
 		
 		loadIdentity();
 		mvPushMatrix();
-		console.log("identity");
-		console.log(mvMatrix);
-		mvScale([self.w,self.h,1]);
-		console.log("scaling");
-		console.log(mvMatrix);
 		mvTranslate([self.x, self.y, -1.0]);
+		mvScale([self.w,self.h,1]);
+		
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 		gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
 		
 		gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesColorBuffer);
 		gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-		console.log("translate");
-		console.log(mvMatrix);
+
 		setMatrixUniforms();
 		for(var i=0;i<len;i++){
 			gl.drawArrays(gl.TRIANGLE_STRIP, i*4, 4);
