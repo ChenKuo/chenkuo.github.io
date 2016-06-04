@@ -109,8 +109,7 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 				
 					}
 				}
-				//console.log(imageVertices.length);
-				//console.log(imageVertices[imageVertices.length-2]);
+
 				gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
