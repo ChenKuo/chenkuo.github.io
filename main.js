@@ -56,16 +56,16 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 		var image2DArray=img_data[self.id].data;
 		var min=0;
 		var max=1;
-		if(self.id!=null){
-			var len=scales[self.id].length;
+		if(cID!=null){
+			var len=scales[cID].length;
 			for(var i=0;i<imageHeight;i++){
 				for(var j=0; j<imageWidth; j++){
 					var color=(image2DArray[imageWidth*i+j]-min)/(max-min);
 					var colorIndex=Math.round((len-1)*color);
 					for(var k=0;k<4;k++){
-						imageColors.push(scales[self.id][colorIndex].r);
-						imageColors.push(scales[self.id][colorIndex].g);
-						imageColors.push(scales[self.id][colorIndex].b);
+						imageColors.push(scales[cID][colorIndex].r);
+						imageColors.push(scales[cID][colorIndex].g);
+						imageColors.push(scales[cID][colorIndex].b);
 						imageColors.push(1);
 					}
 				}
