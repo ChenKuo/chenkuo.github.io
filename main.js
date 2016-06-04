@@ -121,6 +121,8 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
 		};
+	this.createImageVertices(this.id);
+	this.createImageColors(this.cindex);
 	
 	this.draw= 
 		function(){
@@ -250,9 +252,9 @@ function start() {
 		//initBuffers();
 
 		// Set up to draw the scene periodically.
-		//drawScene();
-		// no need to update screen every 15ms
 		//setInterval(drawScene, 15);
+		// no need to update screen every 15ms
+		//drawScene();
 	  }
 	
 }
@@ -317,108 +319,6 @@ function drawScene() {
 	}
 	
 }
-/*
-function drawImage(){
-	 
-  // Establish the perspective with which we want to view the
-  // scene....
-  // no not now ...perspectiveMatrix is a misnomer
-  //it is actually orthogonal not perspective right now
-  //##the view is upside down
-  perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.b, orthogonal.t, 0.1, 100.0);
-	
-  // Set the drawing position to the "identity" point, which is
-  // the center of the scene.
-	
-	loadIdentity();
-	mvPushMatrix();
-  // Now move the drawing position a bit to where we want to start
-  // drawing the square.
-  mvTranslate([200.0, 150.0, -6.0]);
-
-  
-
-	//set position attribute of vertices
-  gl.bindBuffer(gl.ARRAY_BUFFER, verticesBuffer);
-  gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-
-  // Set the colors attribute for the vertices.
-
-  gl.bindBuffer(gl.ARRAY_BUFFER, verticesColorBuffer);
-  gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-
-  // Draw the squares
-	
-	//not drawing using indices right now
-	//gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, verticesIndexBuffer);
-	
-	//pass in uniforms to shader
-	setMatrixUniforms();
-	
-	//draw the squares one by one as two triangles
-	for(var i=0;i<imageWidth*imageHeight;i++){
-		gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4);
-	}
-	
-	//again not using indices to draw because the index runs out of range (unsighed_short)
-	//gl.drawElements(gl.TRIANGLES, imageWidth*imageHeight*6, gl.UNSIGNED_SHORT, 0);
-	mvPopMatrix();
-}
-
-function drawScale(x,y,w,h,id){//(x,y) top-left coordinate, width, height, index of scale
-	var colorScaleVertices=[];
-	var colorScaleColors=[];
-	var len=scales[id].length;
-	var thickness=w/len;
-	//build vertices
-	//console.log(thickness);
-	for(var i=0;i<len;i++){
-		colorScaleVertices.push(x+(i*thickness));
-		colorScaleVertices.push(y);
-		colorScaleVertices.push(0);
-		
-		colorScaleVertices.push(x+(i*thickness));
-		colorScaleVertices.push(y+h);
-		colorScaleVertices.push(0);
-		
-		colorScaleVertices.push(x+((i+1)*thickness));
-		colorScaleVertices.push(y);
-		colorScaleVertices.push(0);
-		
-		colorScaleVertices.push(x+((i+1)*thickness));
-		colorScaleVertices.push(y+h);
-		colorScaleVertices.push(0);
-
-	}
-	//build colors
-	for(var i=0;i<len;i++){
-		for(var k=0;k<4;k++){
-			colorScaleColors.push(scales[id][i].r/255);
-			colorScaleColors.push(scales[id][i].g/255);
-			colorScaleColors.push(scales[id][i].b/255);
-			colorScaleColors.push(1);
-		}
-	}
-	perspectiveMatrix = makeOrtho(orthogonal.l, orthogonal.r, orthogonal.t, orthogonal.b, 0.1, 100.0);
-	
-	mvPushMatrix();
-	loadIdentity();
-	mvTranslate([-0.0, 0.0, -6.0]);
-	gl.bindBuffer(gl.ARRAY_BUFFER, verticesBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorScaleVertices), gl.STATIC_DRAW);
-	gl.vertexAttribPointer(vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
-	
-	gl.bindBuffer(gl.ARRAY_BUFFER, verticesColorBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorScaleColors), gl.STATIC_DRAW);
-	gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
-	
-	setMatrixUniforms();
-	for(var i=0;i<len;i++){
-		gl.drawArrays(gl.TRIANGLE_STRIP, i*4, 4);
-	}
-	mvPopMatrix();
-}
-*/
 
 //
 // initShaders
@@ -510,101 +410,7 @@ function getShader(gl, id) {
 
   return shader;
 }
-/*
-function createImageVertices(){
-	//total number of vertices = ImageWidth x imageHeight x 4
-	//upper left of image at (0,imageHeight)
-	//lower right of image at (imageWidth,0)
-	var imageVertices=[];
-	for(var i=imageHeight;i>0;i--){
-		for(var j=0; j<imageWidth; j++){
-			imageVertices.push(j);
-			imageVertices.push(i);
-			imageVertices.push(0);
-			
-			imageVertices.push(j+1);
-			imageVertices.push(i);
-			imageVertices.push(0);
-			
-			imageVertices.push(j+1);
-			imageVertices.push(i-1);
-			imageVertices.push(0);
-			
-			imageVertices.push(j);
-			imageVertices.push(i-1);
-			imageVertices.push(0);
-			
-		}
-	}
-	// Select the verticesBuffer as the one to apply vertex
-  // operations to from here out.
-  gl.bindBuffer(gl.ARRAY_BUFFER, verticesBuffer);
-	
-	 // Now pass the list of vertices into WebGL to build the shape. We
-  // do this by creating a Float32Array from the JavaScript array,
-  // then use it to fill the current vertex buffer.
 
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
-
-}
-
-function createImageColors(id){
-	//a color for each vertex
-	var imageColors=[];
-	if(id!=null){
-		console.log("coloring");
-		var len=scales[id].length;
-		for(var i=0;i<imageHeight;i++){
-			for(var j=0; j<imageWidth; j++){
-				var color=(image2DArray[imageWidth*i+j]-min)/(max-min);
-				var colorIndex=Math.round((len-1)*color);
-				for(var k=0;k<4;k++){
-					imageColors.push(scales[id][colorIndex].r);
-					imageColors.push(scales[id][colorIndex].g);
-					imageColors.push(scales[id][colorIndex].b);
-					imageColors.push(1);
-				}
-			}
-		}
-	}
-	else{
-		for(var i=0;i<imageHeight;i++){
-			for(var j=0; j<imageWidth; j++){
-				var color=(image2DArray[imageWidth*i+j]-min)/(max-min);
-				for(var k=0;k<4;k++){
-					imageColors.push(color);
-					imageColors.push(color);
-					imageColors.push(color);
-					imageColors.push(1);
-				}
-			}
-		}	
-	}
-	
-	
-	gl.bindBuffer(gl.ARRAY_BUFFER, verticesColorBuffer);
-	
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageColors), gl.STATIC_DRAW);
-}
-
-//not used for now
-function createImageVerticesIndex(){
-	var verticesIndex=[];
-	//total imageWidth*imageHeight*2 triangles
-	for(var i=0;i<imageWidth*imageHeight;i++){
-		verticesIndex.push(4*i+0);
-		verticesIndex.push(4*i+1);
-		verticesIndex.push(4*i+2);
-		
-		verticesIndex.push(4*i+0);
-		verticesIndex.push(4*i+2);
-		verticesIndex.push(4*i+3);
-	}
-	
-	gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, verticesIndexBuffer);
-	gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(verticesIndex), gl.STATIC_DRAW);
-}
-*/
 //set the orthogonal view to view the entire image
 function setView(){
 	orthogonal.l=0;
@@ -730,11 +536,7 @@ if(window.FileReader) {
 					};
 					img_data.push(imgData);
 					img_panels.push(new ImagePanel(0,0,1,1,img_data.length-1,null));
-					//canvas.style.width=imageWidth+"px";
-					//canvas.style.height=imageHeight+"px";
-					//createImageVertices();
-					//createImageColors();
-					//createImageVerticesIndex();
+
 					//setView();
 					drawScene();
 			
