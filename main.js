@@ -56,9 +56,9 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 					var color=(image2DArray[imageWidth*i+j]-min)/(max-min);
 					var colorIndex=Math.round((len-1)*color);
 					for(var k=0;k<4;k++){
-						imageColors.push(scales[cID][colorIndex].r);
-						imageColors.push(scales[cID][colorIndex].g);
-						imageColors.push(scales[cID][colorIndex].b);
+						imageColors.push(scales[cID][colorIndex].r/255);
+						imageColors.push(scales[cID][colorIndex].g/255);
+						imageColors.push(scales[cID][colorIndex].b/255);
 						imageColors.push(1);
 					}
 				}
@@ -109,7 +109,9 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 				
 					}
 				}
-
+				//console.log(imageVertices.length);
+				//console.log(imageVertices[imageVertices.length-3]);
+				//console.log(imageVertices[imageVertices.length-2]);
 				gl.bindBuffer(gl.ARRAY_BUFFER, self.verticesBuffer);
 
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(imageVertices), gl.STATIC_DRAW);
@@ -132,7 +134,9 @@ var ImagePanel=function(x,y,w,h,dataID,cID){
 			gl.vertexAttribPointer(vertexColorAttribute, 4, gl.FLOAT, false, 0, 0);
 
 			setMatrixUniforms();
-			for(var i=0;i<img_data[self.id].length;i++){
+			
+			var len=img_data[self.id].data.length;
+			for(var i=0;i<len;i++){
 				gl.drawArrays(gl.TRIANGLE_FAN, i*4, 4);
 			}
 			mvPopMatrix();
@@ -275,13 +279,7 @@ function initWebGL() {
   }
 }
 
-/*
-function initBuffers() {
-	verticesBuffer = gl.createBuffer();
 
-	verticesColorBuffer = gl.createBuffer();
-}
-*/
 //
 // drawScene
 //
@@ -291,25 +289,27 @@ function drawScene() {
   // Clear the canvas before we start drawing on it.
 
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	
-	if(img_panels.length>0){
+  
+  
+	var l=img_panels.length;
+	if(l>0){
 		
-		img_panels[0].changeColor(0);
-		img_panels[0].scale(img_data[0].w, img_data[0].h);
-		img_panels[0].move(100,100);
-		img_panels[0].draw();
-		img_panels[0].changeColor(1);
-		img_panels[0].move(300,100);
-		img_panels[0].draw();
-		console.log(img_panels[0]);
+		img_panels[l-1].changeColor(0);
+		img_panels[l-1].scale(img_data[0].w, img_data[0].h);
+		img_panels[l-1].move(100,150);
+		img_panels[l-1].draw();
+		img_panels[l-1].changeColor(1);
+		img_panels[l-1].move(300,150);
+		img_panels[l-1].draw();
+		
 	}
 	
 	
 	for(var i=0;i<color_panels.length;i++){
 		
-		color_panels[i].move(60*i,100);
+		color_panels[i].move(200+60*i,50);
 		color_panels[i].draw();
-		//console.log(color_panels[i]);
+		
 	}
 	
 }
